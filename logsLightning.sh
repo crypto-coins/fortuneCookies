@@ -1,0 +1,1 @@
+docker logs lightningd --tail "10"

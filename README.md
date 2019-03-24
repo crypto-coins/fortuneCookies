@@ -1,22 +1,46 @@
 # gamigoBTC
 
-# Start Bitcoin Daemon
+# (1) Bitcoin Daemon
 
-
-Make sure to edit the path where the blockchain data is saved to - it is huge.
+## Change Blockchain Directory
+you need to change the directory in 3 locations
 ```
 cd docker
 nano docker-compose
 ```
 
-Run Docker, print log, bash into running docker daemon
+## Run Bitcoin Daemon 
 ```
-cd docker
-export NETWORK="mainnet"
-docker-compose up -d "btcd"
-cat /run/media/florian/ZEUS_USBG3_1TERRA/mainnet/btcd.log
+./startBtcd.sh
 docker exec -i -t btcd bash
 ```
+
+## Show Docker Logs
+```
+./logsBtcd.sh
+```
+
+## Bitcoin Controller
+```
+docker exec -i -t "btcd" bash
+netstat -l
+btcctl --rpccert=/rpc/rpc.cert --rpcuser=devuser --rpcpass=devpass version
+btcctl --rpccert=/rpc/rpc.cert --rpcuser=devuser --rpcpass=devpass uptime
+btcctl -u myuser -P mypass -s X.X.X.X:xxxx getpeerinfo --rpccert=rpc.cert
+```
+
+# Lightening Daemon
+
+## Run "Bob" node and bash into it:
+```
+export NETWORK="mainnet"
+docker-compose run -d --name bob lnd_btc
+docker exec -i -t bob bash
+```
+
+# Get the identity pubkey of "Bob" node:
+bob$ lncli --network=simnet getinfo
+
 
 lncli --network=mainnet getinfo
 

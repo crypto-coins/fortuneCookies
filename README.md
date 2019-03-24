@@ -1,6 +1,23 @@
 # gamigoBTC
 
+# (0) Useful docker commands
+docker exec -i -t bob bash
+docker network ls
+
+Good to use inside docker:
+Print Listening ports:
+   netstat -l
+Ping Bitcoin Daemon IP:
+   ping btcd
+Print Bitcoin Daemon Upside:
+btcctl --rpccert=/rpc/rpc.cert --rpcuser=devuser --rpcpass=devpass uptime
+
+
+
 # (1) Bitcoin Daemon
+
+We use BTCD which is a full bitcoin node (so it downloads the complete blockchain), but 
+it does not offer wallet services.
 
 ## Change Blockchain Directory
 you need to change the directory in 3 locations
@@ -29,7 +46,7 @@ btcctl --rpccert=/rpc/rpc.cert --rpcuser=devuser --rpcpass=devpass uptime
 btcctl -u myuser -P mypass -s X.X.X.X:xxxx getpeerinfo --rpccert=rpc.cert
 ```
 
-# Lightening Daemon
+# (2) Lightening Daemon
 
 ## Run "Bob" node and bash into it:
 ```
@@ -73,3 +90,7 @@ Fork me on GitHub!https://github.com/BlueWallet/LndHub
 https://1ml.com/statistics
 
 https://lnroute.com/
+
+
+
+https://satoshis.place/

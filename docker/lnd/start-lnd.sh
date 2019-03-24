@@ -41,23 +41,16 @@ set_default() {
 # Set default variables if needed.
 RPCUSER=$(set_default "$RPCUSER" "devuser")
 RPCPASS=$(set_default "$RPCPASS" "devpass")
-DEBUG=$(set_default "$DEBUG" "debug")
-NETWORK=$(set_default "$NETWORK" "simnet")
-CHAIN=$(set_default "$CHAIN" "bitcoin")
-BACKEND="btcd"
-if [[ "$CHAIN" == "litecoin" ]]; then
-    BACKEND="ltcd"
-fi
 
 exec lnd \
+    --debuglevel=trace \
     --noseedbackup \
     --logdir="/data" \
-    "--$CHAIN.active" \
-    "--$CHAIN.$NETWORK" \
-    "--$CHAIN.node"="btcd" \
-    "--$BACKEND.rpccert"="/rpc/rpc.cert" \
-    "--$BACKEND.rpchost"="blockchain" \
-    "--$BACKEND.rpcuser"="$RPCUSER" \
-    "--$BACKEND.rpcpass"="$RPCPASS" \
-    --debuglevel="$DEBUG" \
+    "--bitcoin.active" \
+    "--bitcoin.mainnet" \
+    "--bitcoin.node"="btcd" \
+    "--btcd.rpccert"="/rpc/rpc.cert" \
+    "--btcd.rpchost"="blockchain" \
+    "--btcd.rpcuser"="$RPCUSER" \
+    "--btcd.rpcpass"="$RPCPASS" \
     "$@"

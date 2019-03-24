@@ -41,16 +41,12 @@ set_default() {
 # Set default variables if needed.
 RPCUSER=$(set_default "$RPCUSER" "devuser")
 RPCPASS=$(set_default "$RPCPASS" "devpass")
-DEBUG=$(set_default "$DEBUG" "info")
 NETWORK=$(set_default "$NETWORK" "simnet")
 
 PARAMS=""
-if [ "$NETWORK" != "mainnet" ]; then
-   PARAMS=$(echo --$NETWORK)
-fi
 
 PARAMS=$(echo $PARAMS \
-    "--debuglevel=$DEBUG" \
+    "--debuglevel=trace" \
     "--rpcuser=$RPCUSER" \
     "--rpcpass=$RPCPASS" \
     "--datadir=/data" \

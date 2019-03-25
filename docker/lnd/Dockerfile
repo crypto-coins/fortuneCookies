@@ -22,7 +22,7 @@ RUN apk add --no-cache --update alpine-sdk \
 FROM alpine as final
 
 # Expose lnd ports (server, rpc).
-EXPOSE 9735 10001 8089
+EXPOSE 9735 10001 8089 10011
 
 # Copy the binaries and entrypoint from the builder image.
 COPY --from=builder /go/bin/lncli /bin/
@@ -32,6 +32,31 @@ COPY --from=builder /go/bin/lnd /bin/
 RUN apk add --no-cache \
     bash
 
+
 # Copy the entrypoint script.
 COPY "docker/lnd/start-lnd.sh" .
 RUN chmod +x start-lnd.sh
+
+
+COPY "docker/lnd/info.sh" .
+RUN chmod +x info.sh
+
+COPY "docker/lnd/newaddress.sh" .
+RUN chmod +x newaddress.sh
+
+COPY "docker/lnd/walletbalance.sh" .
+RUN chmod +x walletbalance.sh
+
+
+COPY "docker/lnd/listchannels.sh" .
+RUN chmod +x listchannels.sh
+
+COPY "docker/lnd/openchannel.sh" .
+RUN chmod +x openchannel.sh
+
+COPY "docker/lnd/invoice.sh" .
+RUN chmod +x invoice.sh
+
+
+
+

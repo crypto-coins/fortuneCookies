@@ -66,8 +66,20 @@ var config2 = {
 var lnd = ln.Connect(config2);
 
 app.get('/backoffice', async function(req, res) {
+
+    var wallet = undefined;
+    var error = undefined;
+    try {
+        wallet =  await ln.WalletInfo(lnd);
+    }
+    catch (err) {
+        error = err;
+        wallet = undefined;
+    }
+
     res.render('backoffice', {
-        wallet: await ln.WalletInfo(lnd)
+        wallet,
+        error
     });
 });
 

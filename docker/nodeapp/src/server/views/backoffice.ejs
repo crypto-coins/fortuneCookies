@@ -12,6 +12,8 @@
 
     <h2> WalletInfo </h2>
 
+    <% if (wallet!= undefined) { %>
+
     <p> Chain Is Synced:  <%= wallet.is_synced_to_chain %> </p>
     <p> current block height:  <%= wallet.current_block_height %> </p>
     <p> latest block time: <b> <%= wallet.latest_block_at %> </b>  </p>
@@ -22,6 +24,11 @@
     <p> active_channels_count:  <%= wallet.active_channels_count %> </p>
     <p> pending_channels_count:  <%= wallet.pending_channels_count %> </p>
 
+    <% } else  { %>
+
+    <p> error:  <%= JSON.stringify(error) %> </p>
+
+    <% }  %>
 
 </body>
 </html>

@@ -55,4 +55,10 @@ exec lnd \
     "--btcd.rpcpass"="$RPCPASS" \
     "--rpclisten=0.0.0.0:10001" \
     "--restlisten=0.0.0.0:8089" \
+    "--listen=0.0.0.0:10011" \
+    "--externalip=80.110.207.163" \
+    "--noencryptwallet"
     "$@"
+
+
+# 172.22.0.3

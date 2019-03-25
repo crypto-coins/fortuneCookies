@@ -1,7 +1,12 @@
 FROM node:latest
 
-COPY src /app
+# Apt has no cli interface.  why??
 
+
+RUN apt update && apt install -y nano net-tools
+
+
+COPY src /app
 
 # web port
 EXPOSE 8088

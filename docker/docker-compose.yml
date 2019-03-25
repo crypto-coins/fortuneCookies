@@ -54,11 +54,13 @@ services:
         links:
           - "btcd:blockchain"
         ports:
-           - "8089:8089"
-           - "10001:10001"
-        expose:
-          - "8089"
-          - "10001"
+          - "8089:8089"
+          - "10001:10001"
+          - "10011:10011"
+        # expose is not visible from the host
+        # expose:
+        #  - "8089"
+        #  - "10001"
         entrypoint: ["./start-lnd.sh"]
   
 
@@ -80,7 +82,7 @@ services:
         ports:
            - "8088:8088"
         links:
-          - lnd
+          - "lnd:lnd"
         # expose only works in containers networks; not visible from host
         # expose:
         #  - "8088"

@@ -12,7 +12,7 @@ var ln = require("./ln.js");
 
 var config =  {
   dir: "/run/media/florian/ZEUS_USBG3_1TERRA/lnd/",
-  ip: "127.0.0.1"
+  ip: "172.22.0.3"
 };
 
 var config2 = {
@@ -22,10 +22,19 @@ var config2 = {
 
 
 async function demo () {
-  var lnd = ln.Connect(config2);
 
-  var result = await ln.WalletInfo(lnd);
-  console.log(result);
+  var conf = config;
+
+  console.log("Connecting to LND daemon at ip: " + conf.ip)
+  var lnd = ln.Connect(conf);
+
+  try {
+    var result = await ln.WalletInfo(lnd);
+    console.log(result);
+  }
+  catch (Err) {
+    console.log("Err: " + JSON.stringify(Err))
+  }
 }
 
 

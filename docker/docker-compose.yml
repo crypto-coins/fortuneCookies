@@ -49,6 +49,7 @@ services:
           - DEBUG
         volumes:
             - shared:/rpc
+            - lnd:/root/.lnd
         entrypoint: ["./start-lnd.sh"]
 
     lnd_btc:
@@ -58,7 +59,27 @@ services:
           - "btcd:blockchain"
 
 
-
+    nodeapp:
+        image: nodeapp
+        build:
+          context: nodeapp/
+        environment:
+          - RPCUSER
+          - RPCPASS
+          - NETWORK
+          - CHAIN
+          - DEBUG
+        volumes:
+            - shared:/rpc
+            - lnd:/root/.lnd
+        # HOST:CONTAINER
+        ports:
+           - "8088:8088"
+        links:
+          - lnd_btc
+        # expose only works in containers networks; not visible from host
+        # expose:
+        #  - "8088"
 
 volumes:
   # shared volume is need to store the btcd rpc certificates and use it within
@@ -88,3 +109,10 @@ volumes:
       o: 'bind'
       device: '/run/media/florian/ZEUS_USBG3_1TERRA/lightening'
 
+  # lightening daemon
+  lnd:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/run/media/florian/ZEUS_USBG3_1TERRA/lnd'

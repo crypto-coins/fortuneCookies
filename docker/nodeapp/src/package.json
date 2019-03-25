@@ -1,0 +1,24 @@
+{
+  "name": "gamigobtc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bitcoin-lightning-nodejs": "^1.2.2",
+    "bluebird": "^3.5.3",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
+    "ejs": "^2.6.1",
+    "express-session": "^1.15.6",
+    "expresss": "0.0.0",
+    "ln-service": "^34.5.0",
+    "method-override": "^3.0.0",
+    "moment": "^2.24.0",
+    "ramda": "^0.26.1"
+  }
+}

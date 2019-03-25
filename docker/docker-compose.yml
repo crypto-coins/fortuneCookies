@@ -38,6 +38,7 @@ services:
 
     lnd:
         image: lnd
+        container_name: lnd
         build:
           context: ../
           dockerfile: docker/lnd/Dockerfile
@@ -50,17 +51,20 @@ services:
         volumes:
             - shared:/rpc
             - lnd:/root/.lnd
-        entrypoint: ["./start-lnd.sh"]
-
-    lnd_btc:
-      extends: lnd
-      container_name: lnd_btc
-      links:
+        links:
           - "btcd:blockchain"
-
+        ports:
+           - "8089:8089"
+           - "10001:10001"
+        expose:
+          - "8089"
+          - "10001"
+        entrypoint: ["./start-lnd.sh"]
+  
 
     nodeapp:
         image: nodeapp
+        container_name: nodeapp
         build:
           context: nodeapp/
         environment:
@@ -76,7 +80,7 @@ services:
         ports:
            - "8088:8088"
         links:
-          - lnd_btc
+          - lnd
         # expose only works in containers networks; not visible from host
         # expose:
         #  - "8088"
@@ -101,7 +105,7 @@ volumes:
       device: '/run/media/florian/ZEUS_USBG3_1TERRA/bitcoin'
 
 
-  # lightening daemon
+  # lightening daemon [c-lightening]
   lightning:
     driver: local
     driver_opts:
@@ -109,7 +113,7 @@ volumes:
       o: 'bind'
       device: '/run/media/florian/ZEUS_USBG3_1TERRA/lightening'
 
-  # lightening daemon
+  # lightening daemon [lnd]
   lnd:
     driver: local
     driver_opts:

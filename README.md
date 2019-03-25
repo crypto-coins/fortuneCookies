@@ -79,18 +79,6 @@ lncli is the command line client used to interact with your lnd nodes. Typically
 
 
 
-https://lndhub.herokuapp.com/
 
-LndHub, opensource wrapper for Lightning Network DaemonIt provides separate accounts with minimum trust for end users
-
-
-Fork me on GitHub!https://github.com/BlueWallet/LndHub
-
-
-https://1ml.com/statistics
-
-https://lnroute.com/
-
-
-
-https://satoshis.place/
+docker exec -i -t nodeapp /bin/bash
+  499  docker exec -i -t lnd /bin/bash

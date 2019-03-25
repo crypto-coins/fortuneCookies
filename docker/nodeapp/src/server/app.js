@@ -38,10 +38,7 @@ app.get('/', async function(req, res) {
     });
 });
 
-app.get('/backoffice', async function(req, res) {
-    res.render('backoffice', {
-    });
-});
+
 
 app.get('/web', async function(req, res) {
     res.render('web', {
@@ -52,3 +49,27 @@ app.get('/web', async function(req, res) {
 var port = 8088;
 app.listen(port);
 console.log("listening on port ", port)
+
+
+var config =  {
+    dir: "/run/media/florian/ZEUS_USBG3_1TERRA/lnd/",
+    ip: "127.0.0.1"
+  };
+
+var config2 = {
+    dir: "/root/.lnd/", // this direction gets mounted via docker-compose
+    ip:"lnd"  // virtual dns names also defined in docker-compose
+  }; 
+
+  var ln = require("../ln.js");
+
+var lnd = ln.Connect(config2);
+
+app.get('/backoffice', async function(req, res) {
+    res.render('backoffice', {
+        wallet: await ln.WalletInfo(lnd)
+    });
+});
+
+
+  

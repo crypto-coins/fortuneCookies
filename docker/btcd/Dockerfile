@@ -1,7 +1,5 @@
 FROM golang:1.11-alpine as builder
 
-MAINTAINER Olaoluwa Osuntokun <laolu@lightning.network>
-
 # Install build dependencies such as git and glide.
 RUN apk add --no-cache git gcc musl-dev
 

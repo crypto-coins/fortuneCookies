@@ -53,4 +53,6 @@ exec lnd \
     "--btcd.rpchost"="blockchain" \
     "--btcd.rpcuser"="$RPCUSER" \
     "--btcd.rpcpass"="$RPCPASS" \
+    "--rpclisten=0.0.0.0:10001" \
+    "--restlisten=0.0.0.0:8089" \
     "$@"

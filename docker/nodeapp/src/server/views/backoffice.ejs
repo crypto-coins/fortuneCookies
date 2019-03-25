@@ -9,6 +9,19 @@
 <body>
     <% include menu %>
     <h1> Welcome to Bongistan!</h1>
-    <p> Backoffice is not yet implemented </p>
+
+    <h2> WalletInfo </h2>
+
+    <p> Chain Is Synced:  <%= wallet.is_synced_to_chain %> </p>
+    <p> current block height:  <%= wallet.current_block_height %> </p>
+    <p> latest block time: <b> <%= wallet.latest_block_at %> </b>  </p>
+
+    <p> public_key:  <%= wallet.public_key %> </p>
+    <p> version:  <%= wallet.version %> </p>
+
+    <p> active_channels_count:  <%= wallet.active_channels_count %> </p>
+    <p> pending_channels_count:  <%= wallet.pending_channels_count %> </p>
+
+
 </body>
 </html>

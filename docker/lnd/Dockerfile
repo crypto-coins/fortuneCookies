@@ -1,9 +1,10 @@
 FROM golang:1.11-alpine as builder
 
-MAINTAINER Olaoluwa Osuntokun <lightning.engineering>
+RUN apk add --no-cache git
 
 # Copy in the local repository to build from.
-COPY . /go/src/github.com/lightningnetwork/lnd
+#COPY . /go/src/github.com/lightningnetwork/lnd
+RUN git clone https://github.com/lightningnetwork/lnd /go/src/github.com/lightningnetwork/lnd
 
 # Force Go to use the cgo based DNS resolver. This is required to ensure DNS
 # queries required to connect to linked containers succeed.
@@ -21,7 +22,7 @@ RUN apk add --no-cache --update alpine-sdk \
 FROM alpine as final
 
 # Expose lnd ports (server, rpc).
-EXPOSE 9735 10009
+EXPOSE 9735 10001 8089
 
 # Copy the binaries and entrypoint from the builder image.
 COPY --from=builder /go/bin/lncli /bin/

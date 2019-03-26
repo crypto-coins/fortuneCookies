@@ -4,9 +4,13 @@ const lnService = require('ln-service');
 
 var getWalletInfo = bluebird.promisify(lnService.getWalletInfo);
 
+const util = require('util');
+const dns = require('dns');
+const lookupAsync = util.promisify(dns.lookup);
 
 
-function Connect (config) {
+
+async function Connect (config) {
     let buff = fs.readFileSync(config.dir + "tls.cert");  
     let certBase64 = buff.toString('base64');
     console.log("certBase64: " + certBase64);
@@ -16,12 +20,16 @@ function Connect (config) {
     let macaroonBase64 = buff2.toString('base64');
     console.log("macaroonBase64: " + macaroonBase64);
     
+
+    var r = await lookupAsync (config.ip);
+    console.log(r);
+    var ip = r.address;
     
     
     const lnd = lnService.lightningDaemon({
       cert: certBase64,
       macaroon: macaroonBase64,
-      socket: config.ip + ':10001',
+      socket: ip + ':10001',
     });
 
     return lnd;

@@ -58,9 +58,10 @@ services:
           - "10001:10001"
           - "10011:10011"
         # expose is not visible from the host
-        # expose:
+        #expose:
         #  - "8089"
         #  - "10001"
+        #  - "10011"
         entrypoint: ["./start-lnd.sh"]
   
 

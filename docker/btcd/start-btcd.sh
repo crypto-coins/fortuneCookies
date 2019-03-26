@@ -57,6 +57,9 @@ PARAMS=$(echo $PARAMS \
     "--txindex"
 )
 
+# txindex is needed so that LND can query for historical transactions.
+
+
 # Set the mining flag only if address is non empty.
 if [[ -n "$MINING_ADDRESS" ]]; then
     PARAMS="$PARAMS --miningaddr=$MINING_ADDRESS"

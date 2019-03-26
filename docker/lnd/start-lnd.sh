@@ -53,12 +53,18 @@ exec lnd \
     "--btcd.rpchost"="blockchain" \
     "--btcd.rpcuser"="$RPCUSER" \
     "--btcd.rpcpass"="$RPCPASS" \
-    "--rpclisten=0.0.0.0:10001" \
+    "--rpclisten=localhost:10001" \
+    "--rpclisten=lnd:10001" \
     "--restlisten=0.0.0.0:8089" \
     "--listen=0.0.0.0:10011" \
     "--externalip=80.110.207.163" \
-    "--noencryptwallet"
     "$@"
 
+    
+#     "--noencryptwallet"
 
 # 172.22.0.3
+
+
+
+# Wallet Address:   39Shju5ZrxvrCJfvSecZm9EJiwHhjQY7rA

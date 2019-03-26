@@ -1,4 +1,5 @@
-# gamigoBTC
+# lightening fortune cookies
+
 
 # (0) Useful docker commands
 docker exec -i -t bob bash

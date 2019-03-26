@@ -178,3 +178,9 @@ and send some amount of bitcoins to `Alice`.
 ```bash
 docker-compose logs <alice|bob|btcd>
 ```
+
+
+
+
+AZURE ADD VM IMAGE
+https://docs.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal

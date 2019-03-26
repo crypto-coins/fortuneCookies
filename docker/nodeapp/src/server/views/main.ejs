@@ -12,10 +12,17 @@
         background-color:beige;
     }
 
+    div.payment-box {
+        background-color: green;
+        max-width: 15cm;
+
+    }
+
     .payment-text {
         color: blue;
+        width: 100px;
         max-width: 100px;
-        word-break: break-all;
+        overflow-wrap: break-word;
     }
 
     img.fortune-image {
@@ -35,15 +42,10 @@
     }
 
 </style>
-
-
-
 <body>
     <% include menu %>
 
-    <h1> Welcome to <img src="/public/flash.svg" height="32" alt="Lightening"/> Fortune Cookies!</h1>
-
-    <p> Discover beautiful fortune cookie quotes, for just 1-5 satoshis.</p>
+    <h2> Discover beautiful fortune cookie quotes, for just 1-5 satoshis.</h2>
 
     <% if (invoice == undefined) { %>
         <p> Click on the fortune cookie below to reveal it's contents... </p>
@@ -60,7 +62,10 @@
     <p> This invoice will expire in 10 minutes since it was created. </p>
     <img style="height: 200px; width: 200px;" height="600" width="600" src="/qr?text=<%= invoice.request %>"> </img>
 
-    <p> Payment Request: <b class="payment-text">  <%= invoice.request %>  </b> </p>
+    <div class="payment-box">
+        <p> Payment Request: <b class="payment-text">  <%= invoice.request %>  </b> </p>
+    </div> 
+    
 
     <p style="color:#a0a0a0;">Invoice Id:    <%= invoice.id %>  </p>
 

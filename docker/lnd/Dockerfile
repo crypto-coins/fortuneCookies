@@ -58,5 +58,11 @@ COPY "docker/lnd/invoice.sh" .
 RUN chmod +x invoice.sh
 
 
+COPY "docker/lnd/networkinfo.sh" .
+RUN chmod +x networkinfo.sh
+
+COPY "docker/lnd/connect1.sh" .
+RUN chmod +x connect1.sh
+
 
 

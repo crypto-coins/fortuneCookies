@@ -8,27 +8,112 @@
 
 <body>
     <% include menu %>
-    <h1> Welcome to Bongistan!</h1>
+    <h1> Backoffice </h1>
 
-    <h2> WalletInfo </h2>
+    <h2> Lightening Host is: </h2>
+    <%= ip %>
 
+    <h2> Wallet-Info </h2>
     <% if (wallet!= undefined) { %>
-
-    <p> Chain Is Synced:  <%= wallet.is_synced_to_chain %> </p>
-    <p> current block height:  <%= wallet.current_block_height %> </p>
-    <p> latest block time: <b> <%= wallet.latest_block_at %> </b>  </p>
-
-    <p> public_key:  <%= wallet.public_key %> </p>
-    <p> version:  <%= wallet.version %> </p>
-
-    <p> active_channels_count:  <%= wallet.active_channels_count %> </p>
-    <p> pending_channels_count:  <%= wallet.pending_channels_count %> </p>
-
+        <p> Chain Is Synced: <b> <%= wallet.is_synced_to_chain %> </b>  
+            current block height:  <b> <%= wallet.current_block_height %> </b> 
+            latest block time: <b> <%= wallet.latest_block_at %> </b> 
+        </p>
+        <p> public key:  <%= wallet.public_key %> <br/>
+            version:  <%= wallet.version %> 
+        </p>
+        <p> active channels:  <b> <%= wallet.active_channels_count %> </b>   
+            pending channels:  <b>  <%= wallet.pending_channels_count %> </b> 
+        </p>
     <% } else  { %>
-
-    <p> error:  <%= JSON.stringify(error) %> </p>
-
+        <p> error:  <%= JSON.stringify(error) %> </p>
     <% }  %>
+
+    <h2> Invoices </h2>
+
+    <% if (invoices!= undefined) { %> 
+    <table>
+        <thead>
+            <th> created</th>
+            <th> mtokens</th>
+            <th> type</th>
+            <th> text </th>
+            <th> is_confirmed </th>
+        </thead>
+
+        <tbody>
+        <% invoices.forEach (function(i){  %>
+            <tr>
+                <td>
+                    <%= i.created_at %> 
+                </td>
+
+                <td>
+                    <%= i.mtokens %> 
+                </td>
+
+                <td>
+                    <%= i.type %> 
+                </td>
+
+                <td>
+                    <%= i.description %> 
+                </td>
+
+                <td>
+                    <%= i.is_confirmed %> 
+                </td>
+
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+    <% } %>
+
+
+    <h2> Chanels </h2>
+
+    <% if (channels!= undefined) { %> 
+    <table>
+        <thead>
+            <th> created</th>
+            <th> mtokens</th>
+            <th> type</th>
+            <th> text </th>
+            <th> is_confirmed </th>
+        </thead>
+
+        <tbody>
+        <% channels.forEach (function(c){  %>
+            <tr>
+                <td>
+                    <%= c.created_at %> 
+                </td>
+
+                <td>
+                    <%= c.mtokens %> 
+                </td>
+
+                <td>
+                    <%= c.type %> 
+                </td>
+
+                <td>
+                    <%= c.description %> 
+                </td>
+
+                <td>
+                    <%= c.is_confirmed %> 
+                </td>
+
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+    <% } %>
+
+    
+
 
 </body>
 </html>

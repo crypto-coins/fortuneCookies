@@ -19,6 +19,7 @@
     "ln-service": "^34.5.0",
     "method-override": "^3.0.0",
     "moment": "^2.24.0",
+    "qr-image": "^3.2.0",
     "ramda": "^0.26.1"
   }
 }

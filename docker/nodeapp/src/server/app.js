@@ -12,6 +12,10 @@ var R = require("ramda"),
     cookieParser = require('cookie-parser'),
     methodOverride = require('method-override');
     
+    var ln = require("../ln.js");
+    var lnd = undefined; 
+    var {GetQuote} = require("./fortune.js");
+
     
 // express.js engine
 var app = express();
@@ -29,12 +33,44 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+app.use('/public',  express.static('server/public'))
 //app.use(compression({filter: shouldCompress}))
 
-var starttime = moment();
+var config =  {
+    dir: "/run/media/florian/ZEUS_USBG3_1TERRA/lnd/",
+    ip: "localhost"
+  };
+
+var config2 = {
+    dir: "/root/.lnd/", // this direction gets mounted via docker-compose
+    ip:"lnd"  // virtual dns names also defined in docker-compose
+  }; 
+
+
+
+
 app.get('/', async function(req, res) {
+
+    command = req.query.command;
+    if (command==undefined) command = "start";
+
+    var invoice = undefined;
+    var quote = undefined;
+
+    if (command=="makeinvoice") {
+        if (lnd==undefined) lnd = await ln.Connect(config);
+        var satoshis = Math.floor(Math.random() * 5) + 1;
+        invoice = await ln.CreateInvoice(lnd, satoshis, "fortunecookie") ;
+        console.log(invoice);
+    }
+
+    if (command=="paymentsuccess") {
+        quote = GetQuote();
+    }
+
     res.render('main', {
-        starttime
+        invoice,
+        quote
     });
 });
 
@@ -46,30 +82,35 @@ app.get('/web', async function(req, res) {
 });
 
 
-var port = 8088;
+var port = 18088;
 app.listen(port);
 console.log("listening on port ", port)
 
 
-var config =  {
-    dir: "/run/media/florian/ZEUS_USBG3_1TERRA/lnd/",
-    ip: "127.0.0.1"
-  };
+ 
 
-var config2 = {
-    dir: "/root/.lnd/", // this direction gets mounted via docker-compose
-    ip:"lnd"  // virtual dns names also defined in docker-compose
-  }; 
 
-  var ln = require("../ln.js");
+app.get("/qr", async function (req, res) {
+    var qr = require('qr-image');
+    var text = req.query.text;
+    var qr_svg = qr.image(text, { type: 'svg' });
+    res.setHeader('Content-Type', 'image/svg+xml');
+    qr_svg.pipe(res); 
+});
 
-var lnd = ln.Connect(config2);
+
+
 
 app.get('/backoffice', async function(req, res) {
+
+    var conf = config;
 
     var wallet = undefined;
     var error = undefined;
     try {
+
+        if (lnd==undefined) lnd = await ln.Connect(conf);
+
         wallet =  await ln.WalletInfo(lnd);
     }
     catch (err) {
@@ -77,8 +118,32 @@ app.get('/backoffice', async function(req, res) {
         wallet = undefined;
     }
 
+    var invoices  = [];
+    try {
+        invoices = await ln.Invoices(lnd);
+        console.log(invoices);
+    } catch (err) {
+        error = err;
+        invoices = [];
+    }
+
+    var channels  = [];
+    try {
+        channels = await ln.Channels(lnd);
+        console.log(channels);
+    } catch (err) {
+        error = err;
+        channels = [];
+    }
+
+
+    
+
     res.render('backoffice', {
+        ip : conf.ip,
         wallet,
+        invoices,
+        channels,
         error
     });
 });

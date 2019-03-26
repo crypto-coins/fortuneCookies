@@ -42,6 +42,11 @@ set_default() {
 RPCUSER=$(set_default "$RPCUSER" "devuser")
 RPCPASS=$(set_default "$RPCPASS" "devpass")
 
+
+# Remove TLS certificates (docker-compose does not re-assign the same IP address; therefore certificates might be wrong)
+rm /root/.lnd/tls.cert
+rm /root/.lnd/tls.key
+
 exec lnd \
     --debuglevel=trace \
     --noseedbackup \

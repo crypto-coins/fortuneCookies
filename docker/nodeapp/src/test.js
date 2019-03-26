@@ -32,6 +32,15 @@ async function demo () {
   catch (Err) {
     console.log("Err: " + JSON.stringify(Err))
   }
+
+
+  var invoices = await ln.Invoices(lnd);
+  console.log(invoices)
+
+
+  var invoice = await ln.CreateInvoice(lnd, 1, "bongo") ;
+  console.log(invoice);
+
 }
 
 

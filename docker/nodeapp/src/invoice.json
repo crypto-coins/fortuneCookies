@@ -1,0 +1,10 @@
+{
+    chain_address: undefined,
+    created_at: '2019-03-26T15:06:25.974Z',
+    description: 'bongo',
+    id: '7b9e75f482127d33d7b2016ee3e9477a6e779870485c5534992261fe9550f9cc',
+    request: 'lnbc10n1pwf50l3pp50w08tayzzf7n84ajq9hw86280fh80xrsfpw92dyeyfsla92sl8xqdqgvfhkuem0cqzysxqrrssy3tvrsj2dehc2fgzjx5849vmfw72a0jhsds6qr3s4nj7nsk4s0092n7z8d52e6cktlmnmxalvjazvhahn549rf3ysmlf7szu5ccs6ngqfkzujt',
+    secret: '833de33b7ccb7e59843551361a641d2af504f41b3c406e02698fa67bc71ba85c',
+    tokens: 1,
+    type: 'invoice' 
+}

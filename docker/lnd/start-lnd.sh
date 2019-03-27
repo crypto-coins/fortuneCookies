@@ -47,6 +47,12 @@ RPCPASS=$(set_default "$RPCPASS" "devpass")
 rm -f /root/.lnd/tls.cert
 rm -f /root/.lnd/tls.key
 
+echo "LNS sleeping 10 seconds, to let BTCD generate certificates"
+sleep 10 &
+pid=$!
+wait $pid
+echo "LNS sleeping 10 seconds.. Done."
+
 exec lnd \
     --debuglevel=trace \
     --noseedbackup \

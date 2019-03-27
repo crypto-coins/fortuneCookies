@@ -7,6 +7,7 @@ RUN apt update && apt install -y nano net-tools
 
 
 COPY src /app
+RUN cd /app && npm install
 
 # web port
 EXPOSE 8088

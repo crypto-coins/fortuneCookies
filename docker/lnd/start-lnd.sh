@@ -44,8 +44,8 @@ RPCPASS=$(set_default "$RPCPASS" "devpass")
 
 
 # Remove TLS certificates (docker-compose does not re-assign the same IP address; therefore certificates might be wrong)
-rm /root/.lnd/tls.cert
-rm /root/.lnd/tls.key
+rm -f /root/.lnd/tls.cert
+rm -f /root/.lnd/tls.key
 
 exec lnd \
     --debuglevel=trace \

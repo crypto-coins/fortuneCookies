@@ -10,13 +10,12 @@ var R = require("ramda"),
     session = require("express-session"),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
-    methodOverride = require('method-override');
-    
-    var ln = require("../ln.js");
-    var lnd = undefined; 
-    var {GetQuote} = require("./fortune.js");
+    methodOverride = require('method-override'),
 
-    
+    ln = require("../ln.js"),
+    lnd = undefined,
+    {GetQuote} = require("./fortune.js");
+
 // express.js engine
 var app = express();
 app.enable('trust proxy');
@@ -37,7 +36,7 @@ app.use('/public',  express.static('server/public'))
 //app.use(compression({filter: shouldCompress}))
 
 var config =  {
-    dir: "/run/media/florian/ZEUS_USBG3_1TERRA/lnd/",
+    dir: "/datadrive/",
     ip: "localhost"
   };
 
@@ -58,7 +57,7 @@ app.get('/', async function(req, res) {
     var quote = undefined;
 
     if (command=="makeinvoice") {
-        if (lnd==undefined) lnd = await ln.Connect(config);
+        if (lnd==undefined) lnd = await ln.Connect(config2);
         var satoshis = Math.floor(Math.random() * 5) + 1;
         invoice = await ln.CreateInvoice(lnd, satoshis, "fortunecookie") ;
         console.log(invoice);
@@ -82,7 +81,7 @@ app.get('/web', async function(req, res) {
 });
 
 
-var port = 18088;
+var port = 8088;
 app.listen(port);
 console.log("listening on port ", port)
 
@@ -103,7 +102,7 @@ app.get("/qr", async function (req, res) {
 
 app.get('/backoffice', async function(req, res) {
 
-    var conf = config;
+    var conf = config2;
 
     var wallet = undefined;
     var error = undefined;
@@ -136,9 +135,6 @@ app.get('/backoffice', async function(req, res) {
         channels = [];
     }
 
-
-    
-
     res.render('backoffice', {
         ip : conf.ip,
         wallet,
@@ -147,6 +143,3 @@ app.get('/backoffice', async function(req, res) {
         error
     });
 });
-
-
-  

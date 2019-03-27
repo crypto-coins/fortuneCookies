@@ -1,2 +1,3 @@
 cd docker
-export NETWORK="mainnet" && docker-compose up
+export NETWORK="mainnet" && docker-compose up --build
+

@@ -64,10 +64,10 @@ exec lnd \
     "--listen=0.0.0.0:10011" \
     "$@"
 
+
 # "--externalip=80.110.207.163" \ 
 #     "--noencryptwallet"
 # 172.22.0.3
-
 
 
 # Wallet Address:   39Shju5ZrxvrCJfvSecZm9EJiwHhjQY7rA

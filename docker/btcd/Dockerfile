@@ -35,18 +35,22 @@ COPY "start-btcctl.sh" .
 COPY "start-btcd.sh" .
 COPY "uptime.sh" .
 
+RUN mkdir "/root/.btcd" 
+COPY "btcd.conf" /root/.btcd/
+
 RUN apk add --no-cache \
     bash \
     ca-certificates \
-    &&  mkdir "/rpc" "/root/.btcd" "/root/.btcctl" \
-    &&  touch "/root/.btcd/btcd.conf" \
-    &&  chmod +x start-btcctl.sh \
-    &&  chmod +x start-btcd.sh \
+    && mkdir "/rpc" "/root/.btcctl" \
+    && chmod +x start-btcctl.sh \
+    && chmod +x start-btcd.sh \
     && rm -f /rpc/rpc.key \
     && rm -f /rpc/rpc.cert \
     # Manually generate certificate and add all domains, it is needed to connect
     # "btcctl" and "lnd" to "btcd" over docker links.
     && "/bin/gencerts" --host="*" --host="btcd" --directory="/rpc" --force
+
+# &&  touch "/root/.btcd/btcd.conf" \
 
 # Create a volume to house pregenerated RPC credentials. This will be
 # shared with any lnd, btcctl containers so they can securely query btcd's RPC

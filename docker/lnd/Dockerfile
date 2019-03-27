@@ -64,5 +64,7 @@ RUN chmod +x networkinfo.sh
 COPY "docker/lnd/connect1.sh" .
 RUN chmod +x connect1.sh
 
+COPY "docker/lnd/connectLND.sh" .
+RUN chmod +x connectLND.sh
 
 

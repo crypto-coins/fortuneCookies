@@ -22,6 +22,11 @@ A demo-site to show how to accept Lightning payments.
 ./startGotty.sh
 ```
 
+## Data
+/datadrive/LND      LND settings and LND wallet
+/datadive/shared    BTCD credentials
+/datadrive/Bitcoin  blockchain storage
+
 ## Logs
 ```
 ./logsBtcd.sh

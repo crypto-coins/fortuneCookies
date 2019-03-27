@@ -81,7 +81,7 @@ services:
             - lnd:/root/.lnd
         # HOST:CONTAINER
         ports:
-           - "8088:8088"
+           - "80:8088"
         links:
           - "lnd:lnd"
         # expose only works in containers networks; not visible from host

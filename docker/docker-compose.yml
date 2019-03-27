@@ -96,7 +96,7 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/run/media/florian/ZEUS_USBG3_1TERRA/shared'
+      device: '/datadrive'
 
   # bitcoin volume is needed for maintaining blockchain persistence
   # during btcd container recreation.
@@ -105,7 +105,7 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/run/media/florian/ZEUS_USBG3_1TERRA/bitcoin'
+      device: '/datadrive'
 
 
   # lightening daemon [c-lightening]
@@ -114,7 +114,7 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/run/media/florian/ZEUS_USBG3_1TERRA/lightening'
+      device: '/datadrive'
 
   # lightening daemon [lnd]
   lnd:
@@ -122,4 +122,4 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/run/media/florian/ZEUS_USBG3_1TERRA/lnd'
+      device: '/datadrive'

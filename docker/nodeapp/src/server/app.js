@@ -57,10 +57,14 @@ app.get('/', async function(req, res) {
     var quote = undefined;
 
     if (command=="makeinvoice") {
-        if (lnd==undefined) lnd = await ln.Connect(config2);
-        var satoshis = Math.floor(Math.random() * 5) + 1;
-        invoice = await ln.CreateInvoice(lnd, satoshis, "fortunecookie") ;
-        console.log(invoice);
+        try {
+           if (lnd==undefined) lnd = await ln.Connect(config2);
+           var satoshis = Math.floor(Math.random() * 5) + 1;
+           invoice = await ln.CreateInvoice(lnd, satoshis, "fortunecookie") ;
+           console.log(invoice);
+        } catch (err) {
+          console.log("ERROR MAKING INVOICE " + JSON.stringify(err));
+        }
     }
 
     if (command=="paymentsuccess") {
@@ -104,37 +108,48 @@ app.get('/backoffice', async function(req, res) {
 
     var conf = config2;
 
+    var channels = [];
+    var invoices = [];
     var wallet = undefined;
     var error = undefined;
+
     try {
-
         if (lnd==undefined) lnd = await ln.Connect(conf);
-
-        wallet =  await ln.WalletInfo(lnd);
     }
     catch (err) {
+       lnd = undefined;
+       console.log("Error connecting to lnd: " + JSON.stringify(err));
+    }
+
+
+   if (lnd != undefined) {
+      try {
+        wallet =  await ln.WalletInfo(lnd);
+      }
+      catch (err) {
+        console.log("Error getting wallet info: " + JSON.stringify(err) );
         error = err;
         wallet = undefined;
-    }
+      }
 
-    var invoices  = [];
-    try {
-        invoices = await ln.Invoices(lnd);
-        console.log(invoices);
-    } catch (err) {
-        error = err;
-        invoices = [];
-    }
-
-    var channels  = [];
-    try {
+      try {
+         invoices = await ln.Invoices(lnd);
+         console.log(invoices);
+      } catch (err) {
+         error = err;
+         invoices = [];
+         console.log("Error getting Invoices: " + JSON.stringify(err));
+      }
+      try {
         channels = await ln.Channels(lnd);
         console.log(channels);
-    } catch (err) {
-        error = err;
-        channels = [];
-    }
-
+      } catch (err) {
+         error = err;
+         channels = [];
+         console.log("Error getting Channels: " + JSON.stringify(err));
+      }
+   }
+  
     res.render('backoffice', {
         ip : conf.ip,
         wallet,

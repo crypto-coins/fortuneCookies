@@ -17,4 +17,6 @@ EXPOSE 8088
 COPY "start-node.sh" .
 RUN chmod +x start-node.sh
 
+
+WORKDIR /app
 CMD ["node", "/app/server/app.js"]

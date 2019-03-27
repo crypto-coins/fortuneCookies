@@ -94,6 +94,11 @@ app.get('/web', async function(req, res) {
 });
 
 
+app.get('/terminal', async function(req, res) {
+    res.render('terminal', {
+    });
+});
+
 
 app.listen(config.port);
 console.log("listening on port ", config.port)

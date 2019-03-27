@@ -29,7 +29,7 @@ services:
         extends: btc
         container_name: btcctl
         links:
-            - "btcd:rpcserver"
+            - "btcd:btcd"
         entrypoint: ["./start-btcctl.sh"]
 
     #

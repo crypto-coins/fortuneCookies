@@ -46,7 +46,7 @@ NETWORK=$(set_default "$NETWORK" "simnet")
 PARAMS=""
 
 PARAMS=$(echo $PARAMS \
-    "--debuglevel=info" \
+    "--debuglevel=debug" \
     "--rpcuser=$RPCUSER" \
     "--rpcpass=$RPCPASS" \
     "--datadir=/data" \

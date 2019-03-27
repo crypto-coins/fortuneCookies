@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head> 
-    <title>Lightening Fortune Cookies</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-</head>
+<% include menu %>
+
+<!-- JQuery (to show payment status updates -->
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+</script>
 
 <style>
-
-    body {
-        background-color:beige;
-    }
-
     div.payment-box {
         background-color: green;
         max-width: 15cm;
-
     }
 
     .payment-text {
@@ -30,8 +24,6 @@
         background-color: yellow;
     }
 
-
-
     .fortune-text {
         text-align: center;
         font-size:30px;
@@ -40,26 +32,26 @@
         padding:20px;
         margin: 20px;
     }
-
 </style>
-<body>
-    <% include menu %>
 
-    <h2> Discover beautiful fortune cookie quotes, for just 1-5 satoshis.</h2>
+    <% if (invoice == undefined)  { %>
+        <h2> Discover beautiful fortune cookie quotes, for just 1-5 satoshis.</h2>
 
-    <% if (invoice == undefined) { %>
+        <p>
+            This github repo is a demo that allows you to run a Lightning Node (LND) in docker containers,
+            and request and receive payments for your products.
+        </p>
+
         <p> Click on the fortune cookie below to reveal it's contents... </p>
         <a href="/?command=makeinvoice">
             <img class="fortune-image" src="https://image.flaticon.com/icons/svg/315/315059.svg" />
         </a>
-    <% } else { %>
+    <% } else if (quote == undefined) { %>
     <h1> Payment </h1>
-    <p> Your lightening fortune cookie quote will cost: <b> <%= invoice.tokens %>  milli-satoshis </b> </p>
-    <p> To proceed, make a Bitcoin Lightning Network payment (how?) with the following payment request:     </p>
-    
+    <p> Your lightning fortune cookie quote will cost: <b> <%= invoice.tokens %>  milli-satoshis </b> </p>
+    <p> To proceed, make a Bitcoin Lightning Network payment with the following payment request:  </p>
     <p> If you don't have a lightening wallet, then try out <a href="https://bluewallet.io/">  Blue Wallet (Android + iPhone) </a> </p>
-    
-    <p> This invoice will expire in 10 minutes since it was created. </p>
+    <p> This invoice will expire in 10 minutes. </p>
     <img style="height: 200px; width: 200px;" height="600" width="600" src="/qr?text=<%= invoice.request %>"> </img>
 
     <div class="payment-box">
@@ -68,14 +60,25 @@
     
 
     <p style="color:#a0a0a0;">Invoice Id:    <%= invoice.id %>  </p>
+    <% if (invoice != undefined) { %>
+        <div>
+            Payment Status: <span id="payment-status"> ? </span>
+        </div>
+        <% } %>
 
     <% } %>
+
+
+   
 
 
     <% if (quote != undefined) { %>
         <div class = "fortune-text">
             <%= quote %>
         </div>
+        <p style="color:#a0a0a0;">Invoice Id:    <%= invoice.id %>  </p>
+        <p style="color:#a0a0a0;">You paid  <%= invoice.amount %> satoshis to king Remconien 1st. </p>
+
     <% } %>
 
     <p style="position:absolute;bottom:0;text-align:center;width:100%;color:#a0a0a0;">Icon made by Freepik from www.flaticon.com<p>
@@ -88,6 +91,37 @@
         copyText.select();
         document.execCommand("copy");
     }
+
+
+    <% if ( (invoice != undefined) && (quote == undefined) ) { %>
+    $( document ).ready(function() {
+        
+        var invoiceId = '<%= invoice.id %>';
+        var invoiceAmount = '<%= invoice.tokens %>';
+        if (invoiceId != "") {
+            console.log("Getting Invoice Status once per second..");
+            var isPaid = false;
+            setInterval( function(){ 
+                //alert("Hello"); 
+                if (!isPaid) {
+                    console.log("Checking Invoice Status..");
+                    $.get( "invoicestatus?invoiceId="+ invoiceId, function( data ) {
+                        console.log("RCVD: " + JSON.stringify(data));
+                        isPaid = data.paid;
+                        $("#payment-status" ).text( data.time + " paid: " + data.paid );
+
+                        if (isPaid) {
+                            window.location.href = `/?command=paymentsuccess&invoiceId=${invoiceId}&invoiceAmount=${invoiceAmount}`;
+                        }
+                         
+                    });
+                }
+            }, 1000);
+        }
+    });
+    <% } %>
+
+
 </script>
 
 </html>

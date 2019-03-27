@@ -35,18 +35,21 @@ app.use(session({
 app.use('/public',  express.static('server/public'))
 //app.use(compression({filter: shouldCompress}))
 
-var config =  {
-    dir: "/datadrive/",
-    ip: "localhost"
-  };
-
-var config2 = {
+var config = {
     dir: "/root/.lnd/", // this direction gets mounted via docker-compose
-    ip:"lnd"  // virtual dns names also defined in docker-compose
+    ip:"lnd",  // virtual dns names also defined in docker-compose
+    port: 8088
   }; 
 
-
-
+var isDev = process.env.ISDEV;
+if ((isDev != undefined) && (isDev=="true")) {
+    // hack to allow running node app only in development mode by setting an environment variable
+    config = {
+        dir: "/datadrive/lnd/",
+        ip: "localhost",
+        port: 18088
+      };
+}
 
 app.get('/', async function(req, res) {
 
@@ -58,7 +61,7 @@ app.get('/', async function(req, res) {
 
     if (command=="makeinvoice") {
         try {
-           if (lnd==undefined) lnd = await ln.Connect(config2);
+           if (lnd==undefined) lnd = await ln.Connect(config);
            var satoshis = Math.floor(Math.random() * 5) + 1;
            invoice = await ln.CreateInvoice(lnd, satoshis, "fortunecookie") ;
            console.log(invoice);
@@ -68,7 +71,13 @@ app.get('/', async function(req, res) {
     }
 
     if (command=="paymentsuccess") {
+        var invoiceId = req.query.invoiceId;
+        var invoiceAmount = req.query.invoiceAmount;
         quote = GetQuote();
+        invoice =  {
+            id:invoiceId,
+            amount: invoiceAmount
+        }
     }
 
     res.render('main', {
@@ -85,15 +94,12 @@ app.get('/web', async function(req, res) {
 });
 
 
-var port = 8088;
-app.listen(port);
-console.log("listening on port ", port)
 
-
- 
-
+app.listen(config.port);
+console.log("listening on port ", config.port)
 
 app.get("/qr", async function (req, res) {
+    // Render QR code for a lightning invoice
     var qr = require('qr-image');
     var text = req.query.text;
     var qr_svg = qr.image(text, { type: 'svg' });
@@ -101,26 +107,33 @@ app.get("/qr", async function (req, res) {
     qr_svg.pipe(res); 
 });
 
-
+app.get("/invoicestatus", async function (req, res) {
+    // check if invoice has been paid
+    var invoiceId = req.query.invoiceId;
+    var r = Math.floor(Math.random() * 10);
+    var paid = (r > 7); // 30% chance to get paid.
+    var invoiceStatus =  {
+        invoiceId,
+        paid,
+        time: moment.utc().toISOString()
+    }
+    res.json(invoiceStatus);
+});
 
 
 app.get('/backoffice', async function(req, res) {
-
-    var conf = config2;
-
     var channels = [];
     var invoices = [];
     var wallet = undefined;
     var error = undefined;
 
     try {
-        if (lnd==undefined) lnd = await ln.Connect(conf);
+        if (lnd==undefined) lnd = await ln.Connect(config);
     }
     catch (err) {
        lnd = undefined;
        console.log("Error connecting to lnd: " + JSON.stringify(err));
     }
-
 
    if (lnd != undefined) {
       try {
@@ -151,7 +164,7 @@ app.get('/backoffice', async function(req, res) {
    }
   
     res.render('backoffice', {
-        ip : conf.ip,
+        ip : config.ip,
         wallet,
         invoices,
         channels,

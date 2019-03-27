@@ -33,6 +33,7 @@ COPY --from=builder /go/bin/gencerts /bin/
 
 COPY "start-btcctl.sh" .
 COPY "start-btcd.sh" .
+COPY "uptime.sh" .
 
 RUN apk add --no-cache \
     bash \

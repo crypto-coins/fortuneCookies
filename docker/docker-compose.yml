@@ -49,16 +49,17 @@ services:
           - CHAIN
           - DEBUG
         volumes:
-            - shared:/rpc
-            - lnd:/root/.lnd
+          - shared:/rpc
+          - lnd:/root/.lnd
+        depends_on:
+          - btcd
         links:
-          - "btcd:blockchain"
+          - "btcd:btcd"
         ports:
           - "8089:8089"
           - "10001:10001"
           - "10011:10011"
-        depends_on:
-          - btcd
+       
         # expose is not visible from the host
         #expose:
         #  - "8089"

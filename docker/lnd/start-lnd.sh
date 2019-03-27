@@ -55,19 +55,17 @@ exec lnd \
     "--bitcoin.mainnet" \
     "--bitcoin.node"="btcd" \
     "--btcd.rpccert"="/rpc/rpc.cert" \
-    "--btcd.rpchost"="blockchain" \
+    "--btcd.rpchost"="btcd" \
     "--btcd.rpcuser"="$RPCUSER" \
     "--btcd.rpcpass"="$RPCPASS" \
     "--rpclisten=localhost:10001" \
     "--rpclisten=lnd:10001" \
     "--restlisten=0.0.0.0:8089" \
     "--listen=0.0.0.0:10011" \
-    "--externalip=80.110.207.163" \
     "$@"
 
-    
+# "--externalip=80.110.207.163" \ 
 #     "--noencryptwallet"
-
 # 172.22.0.3
 
 

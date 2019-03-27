@@ -96,7 +96,7 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/datadrive'
+      device: '/datadrive/shared'
 
   # bitcoin volume is needed for maintaining blockchain persistence
   # during btcd container recreation.
@@ -105,16 +105,7 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/datadrive'
-
-
-  # lightening daemon [c-lightening]
-  lightning:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/datadrive'
+      device: '/datadrive/bitcoin'
 
   # lightening daemon [lnd]
   lnd:
@@ -122,4 +113,4 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/datadrive'
+      device: '/datadrive/lnd'

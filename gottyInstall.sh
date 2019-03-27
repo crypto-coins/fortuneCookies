@@ -1,12 +1,12 @@
 #!/bin/bash
 
 
-# upgrade go to 1.6
-apt-get install -y golang-1.6-go
+# upgrade go to 1.10
+apt-get install -y golang-1.10
 
-/usr/lib/go-1.6/bin/go version
+/usr/lib/go-1.10/bin/go version
 
-mkdir /home/go
+# mkdir /home/go
 export GOPATH=/home/go
-/usr/lib/go-1.6/bin/go get github.com/yudai/gotty
+/usr/lib/go-1.10/bin/go get github.com/yudai/gotty
 

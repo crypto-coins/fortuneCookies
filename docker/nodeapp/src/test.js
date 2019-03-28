@@ -1,3 +1,5 @@
+var bluebird = require("bluebird");
+
 /*var lightning = require("bitcoin-lightning-nodejs");
 
 
@@ -37,12 +39,43 @@ async function demo () {
   var invoices = await ln.Invoices(lnd);
   console.log(invoices)
 
+  console.log("subscribing to invoices..")
+  var sub = await ln.subscribeToInvoices(lnd);
+  if (sub != undefined) {
+    sub.on('error', () => { console.log("SUBSCRIBE INVOICES ERROR!")  });
+    sub.on('end', () => { console.log("SUBSCRIBE INVOICES END!")  });
+    sub.on('status', () => { console.log("SUBSCRIBE INVOICES status!")  });
+    
+    sub.on('data', invoice => {
+      console.log("INVOICE RCVD: " + JSON.stringify(invoice))
+    });
 
+    
+  }
+
+  console.log("subscribing to transactions..")
+  var subT = await ln.subscribeToTransactions(lnd);
+  if (subT != undefined) {
+    subT.on('error', () => {
+        console.log("SUBSCRIBE TRANSACTION ERROR!")
+    });
+    subT.on('data', tx => {
+      console.log("TRANSACTION RCVD: " + JSON.stringify(tx))
+    });
+  }
+
+  console.log("Waiting for invoice transactions (30 seconds max)")
+
+  console.log("creating demo invoice..")
   var invoice = await ln.CreateInvoice(lnd, 1, "bongo") ;
-  console.log(invoice);
+  console.log("CREATED INVOICE: " + JSON.stringify(invoice));
+
+  await bluebird.Promise.delay(30000);
+  console.log("test done.")
+
+
 
 }
-
 
 demo();
  

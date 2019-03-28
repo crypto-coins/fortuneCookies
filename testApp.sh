@@ -1,1 +1,1 @@
-cd docker && docker-compose up -d "nodeapp"
+cd docker && docker-compose up "nodeapp"

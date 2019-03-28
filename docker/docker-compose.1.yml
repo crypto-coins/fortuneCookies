@@ -5,24 +5,32 @@ services:
     # btc is an image of bitcoin node which used as base image for btcd and
     # btccli. The environment variables default values determined on stage of
     # container start within starting script.
-    bitcoind:
-      image: bitcoind
-      container_name: bitcoind
+    btc:
+      image: btcd
       build:
-        context: ../
-        dockerfile: docker/bitcoind/Dockerfile
+        context: btcd/
       volumes:
             - shared:/rpc
-            - bitcoind:/root/.bitcoin
+            - bitcoin:/data
       environment:
-        - BTC_RPCUSER
-        - BTC_RPCPASSWORD
-        - BTC_TXINDEX=1
-        - MINING_ADDRESS
-      entrypoint: ["/usr/local/bin/docker_entrypoint.sh"]
-      ports:
-          - "8332:8332"
-          - "8333:8333"
+        - RPCUSER
+        - RPCPASS
+        - NETWORK
+
+    btcd:
+        extends: btc
+        container_name: btcd
+        environment:
+          - DEBUG
+          - MINING_ADDRESS
+        entrypoint: ["./start-btcd.sh"]
+
+    btcctl:
+        extends: btc
+        container_name: btcctl
+        links:
+            - "btcd:btcd"
+        entrypoint: ["./start-btcctl.sh"]
 
     #
     # lnd - lightening daemon
@@ -44,9 +52,9 @@ services:
           - shared:/rpc
           - lnd:/root/.lnd
         depends_on:
-          - bitcoind
+          - btcd
         links:
-          - "bitcoind:bitcoind"
+          - "btcd:btcd"
         ports:
           - "8089:8089"
           - "10001:10001"
@@ -112,10 +120,3 @@ volumes:
       type: 'none'
       o: 'bind'
       device: '/datadrive/lnd'
-
-  bitcoind:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/datadrive/bitcoind'

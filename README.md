@@ -14,6 +14,7 @@ A demo-site to show how to accept Lightning payments.
 ## Requirements
 - Linux machine, hosted in Azure/GoogleCloud/AWS
 - 1 Terrabyte disk storage, mounted on /datadrive to store the bitcoin blockchain (currently 250 gigs)
+- AZURE ADD VM IMAGE https://docs.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal
 - open ports: 22 (ssh), 80 (web frontend), 8051 (gotty realtime logs)
 
 
@@ -58,6 +59,5 @@ Optionally, if you’d like to have a persistent configuration between lnd launc
 
 Running an lnd node means that it is listening for payments, watching the blockchain, etc. By default it is awaiting user input.
 
-lncli is the command line client used to interact with your lnd nodes. Typically, each lnd node will be running in its own terminal window, so that you can see its log outputs. lncli commands are thus run from a different terminal window.
-
+lncli is the command line client used to interact with your lnd nodes. 
 

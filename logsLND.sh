@@ -1,1 +1,1 @@
-docker logs lnd_btc --tail "10"
+docker logs lnd --tail "1000"

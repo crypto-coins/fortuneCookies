@@ -36,3 +36,4 @@ RUN chmod a+x /usr/local/bin/docker_entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/docker_entrypoint.sh"]
 
 # STOLEN FROM: https://github.com/jamesob/docker-bitcoind
+

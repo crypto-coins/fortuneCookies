@@ -5,6 +5,7 @@ set -euo pipefail
 BITCOIN_DIR=/root/.bitcoin
 BITCOIN_CONF=${BITCOIN_DIR}/bitcoin.conf
 
+# 2019 03 fh: remove /root/bitcoin.conf because it seems to get auto-created
 rm ${BITCOIN_CONF}
 
 # If config doesn't exist, initialize with sane defaults for running a
@@ -57,3 +58,6 @@ if [ $# -eq 0 ]; then
 else
   exec "$@"
 fi
+
+# Parameters for Configuration
+# https://en.bitcoin.it/wiki/Running_Bitcoin

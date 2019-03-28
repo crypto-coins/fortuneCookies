@@ -4,6 +4,11 @@
 
 
 export NETWORK="mainnet"
+export RPCUSER="bongo"
+export BTC_RPCUSER="bongo"
+export RPCPASS="longo"
+export BTC_RPCPASSWORD="longo"
+
 cd docker
 
 /home/go/bin/gotty \

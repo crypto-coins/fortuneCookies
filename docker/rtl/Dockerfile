@@ -18,6 +18,10 @@ COPY ./RTL.conf /RTL
 
 EXPOSE 3000
 
-ENTRYPOINT ["/sbin/tini", "-g", "--"]
+# Copy the entrypoint script.
+COPY "start-rtl.sh" .
+RUN chmod +x start-rtl.sh
 
-CMD ["node", "rtl"]
+# ENTRYPOINT ["/sbin/tini", "-g", "--"]
+
+CMD ["node", "/RTL/rtl"]

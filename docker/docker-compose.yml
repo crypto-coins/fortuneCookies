@@ -82,6 +82,26 @@ services:
         depends_on:
           - lnd
 
+    rtl:
+        image: rtl
+        container_name: rtl
+        build:
+          context: rtl/
+        environment:
+          - BTC_RPCUSER
+          - BTC_RPCPASSWORD
+          - BTC_TXINDEX
+        volumes:
+            - lnd:/lnd
+        # HOST:CONTAINER
+        ports:
+           - "3000:3000"
+        links:
+          - "lnd:lnd"
+        depends_on:
+          - lnd
+        entrypoint: ["./start-rtl.sh"]
+
         # expose only works in containers networks; not visible from host
         # expose:
         #  - "8088"

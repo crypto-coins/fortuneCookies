@@ -8,6 +8,7 @@ A demo-site to show how to accept Lightning payments.
 - BTCD daemon to download blockchain
 - LND daemon to interact with lightning network.
 - Node.js app interacts with LND.
+- Web UI via RTL LND web admin
 - Gotty to display realtime logs in webbrowser
 - tmux / byobu to not terminate the batch file on shell disconnect
 
@@ -23,10 +24,12 @@ A demo-site to show how to accept Lightning payments.
 ./startGotty.sh
 ```
 
-## Data
+## Data (gets stored outside of docker images)
+```
 /datadrive/LND      LND settings and LND wallet
 /datadive/shared    BTCD credentials
 /datadrive/Bitcoin  blockchain storage
+```
 
 ## Logs
 ```

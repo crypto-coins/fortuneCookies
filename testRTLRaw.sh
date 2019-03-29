@@ -11,5 +11,6 @@ docker run \
    --env 'BTC_RPCPASSWORD=$BTC_RPCPASSWORD' \
    --env 'BTC_TXINDEX=1' \
    --volume /datadrive/lnd:/lnd \
+   -p 3000:3000 \
    -t -i  rtl \
    /bin/sh

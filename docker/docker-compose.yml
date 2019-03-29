@@ -88,11 +88,18 @@ services:
         build:
           context: rtl/
         environment:
-          - BTC_RPCUSER
-          - BTC_RPCPASSWORD
-          - BTC_TXINDEX
+          LND_SERVER_URL: http://lnd:8089/v1
+          MACAROON_PATH: /lnd/data/chain/bitcoin/mainnet
+          LND_CONFIG_PATH: /RTL/lnd.conf
+          #RTL_CONFIG_PATH: /RTL/RTL.conf
+          BITCOIND_CONFIG_PATH: /bitcoind/bitcoin.conf
+          RTL_SSO: 1
+          RTL_COOKIE_PATH: /RTL/.cookie
+          LOGOUT_REDIRECT_LINK: /server/services
         volumes:
             - lnd:/lnd
+            - rtl:/rtldata
+            - bitcoind:/bitcoind
         # HOST:CONTAINER
         ports:
            - "3000:3000"
@@ -139,3 +146,12 @@ volumes:
       type: 'none'
       o: 'bind'
       device: '/datadrive/bitcoind'
+
+  rtl:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/datadrive/rtl'
+
+      

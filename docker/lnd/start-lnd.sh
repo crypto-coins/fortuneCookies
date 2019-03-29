@@ -68,12 +68,14 @@ exec lnd \
     "--rpclisten=localhost:10001" \
     "--rpclisten=lnd:10001" \
     "--restlisten=0.0.0.0:8089" \
-    "--listen=0.0.0.0:10011" \
+     "--listen=0.0.0.0:10011" \
     "$@"
+
+#    "--restlisten=lnd:8089" \
 
 # Neutrino is not yet valid for mainnet
 #  "--bitcoin.node=neutrino" \
-#    "--neutrino.connect=faucet.lightning.community" \
+#  "--neutrino.connect=faucet.lightning.community" \
 
 #"--bitcoin.node"="btcd" \
 #    "--btcd.rpccert"="/rpc/rpc.cert" \

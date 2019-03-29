@@ -15,6 +15,7 @@ RUN git clone https://github.com/ShahanaFarooqui/RTL.git .
 RUN npm install
 
 COPY ./RTL.conf /RTL
+COPY ./lnd.conf /RTL
 
 EXPOSE 3000
 

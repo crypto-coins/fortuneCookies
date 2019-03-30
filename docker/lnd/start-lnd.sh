@@ -54,7 +54,7 @@ wait $pid
 echo "LNS sleeping 5 minutes.. Done."
 
 exec lnd \
-    --debuglevel=trace \
+    --debuglevel=debug \
     --logdir="/data" \
     "--bitcoin.active" \
     "--bitcoin.mainnet" \
@@ -69,6 +69,8 @@ exec lnd \
     "--restlisten=0.0.0.0:8089" \
     "--listen=0.0.0.0:10011" \
     "$@"
+
+# Valid levels are {trace, debug, info, warn, error, critical}
 
 #    --noseedbackup \
 #    "--restlisten=lnd:8089" \

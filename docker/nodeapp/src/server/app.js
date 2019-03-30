@@ -130,6 +130,10 @@ app.get('/backoffice', async function(req, res) {
     var peers = [];
     var channels = [];
     var invoices = [];
+    var networkinfo = [];
+    var payments = [];
+    var balance = {}
+
     var wallet = undefined;
     var error = undefined;
 
@@ -144,6 +148,8 @@ app.get('/backoffice', async function(req, res) {
    if (lnd != undefined) {
       try {
         wallet =  await ln.WalletInfo(lnd);
+        console.log("Wallet Info:")
+        console.log(wallet)
       }
       catch (err) {
         console.log("Error getting wallet info: " + JSON.stringify(err) );
@@ -153,6 +159,7 @@ app.get('/backoffice', async function(req, res) {
 
       try {
          invoices = await ln.Invoices(lnd);
+         console.log("Invoices:")
          console.log(invoices);
       } catch (err) {
          error = err;
@@ -163,6 +170,7 @@ app.get('/backoffice', async function(req, res) {
       
       try {
         peers = await ln.Peers(lnd);
+        console.log("Peers:")
         console.log(peers);
       } catch (err) {
          error = err;
@@ -173,13 +181,54 @@ app.get('/backoffice', async function(req, res) {
 
       try {
         channels = await ln.Channels(lnd);
+        console.log("Channels:")
         console.log(channels);
       } catch (err) {
          error = err;
          channels = [];
          console.log("Error getting Channels: " + JSON.stringify(err));
       }
-   }
+
+      try {
+        networkinfo = await ln.NetworkInfo(lnd);
+        console.log("NetworkInfo:")
+        console.log(networkinfo);
+      } catch (err) {
+         error = err;
+         networkinfo = [];
+         console.log("Error getting NetworkInfo: " + JSON.stringify(err));
+      }
+
+      try {
+        payments = await ln.Payments(lnd);
+        console.log("payments:")
+        console.log(payments);
+      } catch (err) {
+         error = err;
+         payments = [];
+         console.log("Error getting payments: " + JSON.stringify(err));
+      }
+
+      try {
+        var cb =  await ln.getPendingChainBalance({lnd});
+        console.log(cb)
+        balance.chainBalancePending = cb.pending_chain_balance;
+        var pcb = await ln.getChainBalance({lnd});
+        console.log(pcb)
+        balance.chainBalance = pcb.chain_balance;
+        var channelBalance = await ln.getChannelBalance({lnd});
+        balance.channelBalance = channelBalance.channel_balance;
+        balance.channelPendingBalance = channelBalance.pending_balance;
+
+        console.log("balance:")
+        console.log(balance);
+      } catch (err) {
+         error = err;
+         balance = {};
+         console.log("Error getting balance: " + JSON.stringify(err));
+      }
+
+    }
   
     res.render('backoffice', {
         ip : config.ip,
@@ -187,6 +236,8 @@ app.get('/backoffice', async function(req, res) {
         invoices,
         peers,
         channels,
+        networkinfo,
+        balance,
         error
     });
 });

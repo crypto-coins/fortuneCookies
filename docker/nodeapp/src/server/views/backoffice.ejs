@@ -11,6 +11,20 @@
     <h2> Lightening Host is: </h2>
     <%= ip %>
 
+    <h2> Network-Info </h2>
+    <% if (networkinfo!= undefined) { %>
+        <p> channel size:  min: <%= networkinfo.min_channel_size %> 
+                           avg: <%= networkinfo.average_channel_size %> 
+                           max: <%= networkinfo.max_channel_size %>        
+                           <br/>
+
+            node count:  <%= networkinfo.node_count %> 
+            channel count:  <%= networkinfo.channel_count %> 
+            <br>
+            total capacity:  <%= networkinfo.total_capacity %> 
+        </p>
+    <% }  %>
+
     <h2> Wallet-Info </h2>
     <% if (wallet!= undefined) { %>
         <p> Chain Is Synced: <b> <%= wallet.is_synced_to_chain %> </b>  
@@ -26,6 +40,16 @@
     <% } else  { %>
         <p> error:  <%= JSON.stringify(error) %> </p>
     <% }  %>
+
+    <h2> Wallet-Balance  </h2>
+    <% if (balance!= undefined) { %>
+        <p> chainBalancePending:  <%= balance.chainBalancePending %> 
+            chainBalance:   <%= balance.chainBalance %>  <br>
+            channelBalancePending:  <%= balance.channelPendingBalance %> 
+            channelBalance:  <%= balance.channelBalance %> 
+        </p>
+    <% }  %>
+
 
     <h2> Invoices </h2>
 

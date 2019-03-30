@@ -44,6 +44,9 @@ RUN chmod +x info.sh
 COPY "docker/lnd/createwallet.sh" .
 RUN chmod +x createwallet.sh
 
+COPY "docker/lnd/unlock.sh" .
+RUN chmod +x unlock.sh
+
 COPY "docker/lnd/newaddress.sh" .
 RUN chmod +x newaddress.sh
 
@@ -62,14 +65,16 @@ RUN chmod +x openchannel.sh
 COPY "docker/lnd/invoice.sh" .
 RUN chmod +x invoice.sh
 
-
 COPY "docker/lnd/networkinfo.sh" .
 RUN chmod +x networkinfo.sh
 
-COPY "docker/lnd/connect1.sh" .
-RUN chmod +x connect1.sh
+COPY "docker/lnd/connectJOLTFUN.sh" .
+RUN chmod +x connectJOLTFUN.sh
 
-COPY "docker/lnd/connectLND.sh" .
-RUN chmod +x connectLND.sh
+COPY "docker/lnd/openJOLTFUN.sh" .
+RUN chmod +x openJOLTFUN.sh
+
+COPY "docker/lnd/connectLNBIG.sh" .
+RUN chmod +x connectLNBIG.sh
 
 

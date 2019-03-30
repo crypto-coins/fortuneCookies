@@ -18,6 +18,10 @@ A demo-site to show how to accept Lightning payments.
 - AZURE ADD VM IMAGE https://docs.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal
 - open ports: 22 (ssh), 80 (web frontend), 8051 (gotty realtime logs)
 
+## Build it
+```
+./build.sh
+```
 
 ## Run it
 ```
@@ -47,20 +51,17 @@ A demo-site to show how to accept Lightning payments.
 
 
 ## BTC CTL
-Run inside the Docker image:
+./telnetBTCD and then inside:
 ```
 btcctl --rpccert=/rpc/rpc.cert --rpcuser=devuser --rpcpass=devpass version
 btcctl --rpccert=/rpc/rpc.cert --rpcuser=devuser --rpcpass=devpass uptime
 btcctl -u myuser -P mypass -s X.X.X.X:xxxx getpeerinfo --rpccert=rpc.cert
 ```
 
-
-Network Reachability
-If you’d like to signal to other nodes on the network that you’ll accept incoming channels (as peers need to connect inbound to initiate a channel funding workflow), then the --externalip flag should be set to your publicly reachable IP address.
-
-Optionally, if you’d like to have a persistent configuration between lnd launches, allowing you to simply type lnd --bitcoin.testnet --bitcoin.active at the command line, you can create an lnd.conf.
-
-Running an lnd node means that it is listening for payments, watching the blockchain, etc. By default it is awaiting user input.
-
-lncli is the command line client used to interact with your lnd nodes. 
-
+## LND CONFIGURATION
+./telnetLND.sh and then inside:
+```
+./createwallet.sh      (and write down the recovery mnemonic codes, they protect your BTC balance) DO THIS ONLY ONCE!
+./connectJOLTFUN.sh    (establish a connection to the peer at joltfun)
+./openJOLTFUN.sh       (open a channel and fund it with 100,000 sats)
+```

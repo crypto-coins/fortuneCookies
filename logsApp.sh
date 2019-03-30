@@ -1,1 +1,1 @@
-docker logs nodeapp --tail "10"
+docker logs nodeapp --tail "1000"

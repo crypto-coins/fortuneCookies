@@ -16,6 +16,13 @@ var getInvoices = bluebird.promisify(lnService.getInvoices);
 var getPayments = bluebird.promisify(lnService.getPayments);
 var createInvoice = bluebird.promisify(lnService.createInvoice);
 
+
+var getPendingChainBalance = bluebird.promisify(lnService.getPendingChainBalance);
+var getChainBalance = bluebird.promisify(lnService.getChainBalance);
+var getChannelBalance = bluebird.promisify(lnService.getChannelBalance);
+
+
+
 var subscribeToInvoices1 = lnService.subscribeToInvoices; // bluebird.promisify(lnService.subscribeToInvoices);
 var subscribeToTransactions1 = lnService.subscribeToTransactions; // bluebird.promisify(lnService.subscribeToTransactions);
 
@@ -149,6 +156,10 @@ module.exports= {
     AccountingReport,
 
     subscribeToInvoices,
-    subscribeToTransactions
+    subscribeToTransactions,
+    
+    getPendingChainBalance,
+    getChainBalance,
+    getChannelBalance
 }
 

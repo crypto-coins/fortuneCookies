@@ -127,6 +127,7 @@ app.get("/invoicestatus", async function (req, res) {
 
 
 app.get('/backoffice', async function(req, res) {
+    var peers = [];
     var channels = [];
     var invoices = [];
     var wallet = undefined;
@@ -158,6 +159,18 @@ app.get('/backoffice', async function(req, res) {
          invoices = [];
          console.log("Error getting Invoices: " + JSON.stringify(err));
       }
+
+      
+      try {
+        peers = await ln.Peers(lnd);
+        console.log(peers);
+      } catch (err) {
+         error = err;
+         peers = [];
+         console.log("Error getting peers: " + JSON.stringify(err));
+      }
+
+
       try {
         channels = await ln.Channels(lnd);
         console.log(channels);
@@ -172,6 +185,7 @@ app.get('/backoffice', async function(req, res) {
         ip : config.ip,
         wallet,
         invoices,
+        peers,
         channels,
         error
     });

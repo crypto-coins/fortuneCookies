@@ -68,8 +68,59 @@
     </table>
     <% } %>
 
+    <h2> Peers </h2>
 
-    <h2> Chanels </h2>
+    <% if (peers != undefined) { %> 
+    <table>
+        <thead>
+            <th> address</th>
+            <th> inbound</th>
+            <th> ping</th>
+            <th> byte sent </th>
+            <th> byte rcvd </th>
+            <th> sats sent </th>
+            <th> sats rcvd </th>
+        </thead>
+
+        <tbody>
+        <% peers.forEach (function(p){  %>
+            <tr>
+                <td>
+                    <%= p.address %> 
+                </td>
+
+                <td>
+                    <%= p.inbound %> 
+                </td>
+
+                <td>
+                    <%= p.ping_time %> 
+                </td>
+
+                <td>
+                    <%= p.bytes_sent %> 
+                </td>
+
+                <td>
+                    <%= p.bytes_recv %> 
+                </td>
+
+                <td>
+                    <%= p.sat_sent %> 
+                </td>
+
+                <td>
+                    <%= p.sat_recv %> 
+                </td>
+
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+    <% } %>
+
+
+    <h2> Channels </h2>
 
     <% if (channels!= undefined) { %> 
     <table>

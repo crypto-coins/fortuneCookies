@@ -73,9 +73,10 @@
     <% if (peers != undefined) { %> 
     <table>
         <thead>
-            <th> address</th>
-            <th> inbound</th>
-            <th> ping</th>
+            <th> address </th>
+            <th> inbound </th>
+            <th> type </th>
+            <th> ping </th>
             <th> byte sent </th>
             <th> byte rcvd </th>
             <th> sats sent </th>
@@ -86,11 +87,15 @@
         <% peers.forEach (function(p){  %>
             <tr>
                 <td>
-                    <%= p.address %> 
+                    <%= p.socket %> 
                 </td>
 
                 <td>
-                    <%= p.inbound %> 
+                    <%= p.is_inbound %> 
+                </td>
+
+                <td>
+                    <%= p.type %> 
                 </td>
 
                 <td>
@@ -102,15 +107,15 @@
                 </td>
 
                 <td>
-                    <%= p.bytes_recv %> 
+                    <%= p.bytes_received %> 
                 </td>
 
                 <td>
-                    <%= p.sat_sent %> 
+                    <%= p.tokens_sent %> 
                 </td>
 
                 <td>
-                    <%= p.sat_recv %> 
+                    <%= p.tokens_received %> 
                 </td>
 
             </tr>

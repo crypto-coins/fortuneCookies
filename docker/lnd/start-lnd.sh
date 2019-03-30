@@ -55,7 +55,6 @@ echo "LNS sleeping 5 minutes.. Done."
 
 exec lnd \
     --debuglevel=trace \
-    --noseedbackup \
     --logdir="/data" \
     "--bitcoin.active" \
     "--bitcoin.mainnet" \
@@ -68,9 +67,10 @@ exec lnd \
     "--rpclisten=localhost:10001" \
     "--rpclisten=lnd:10001" \
     "--restlisten=0.0.0.0:8089" \
-     "--listen=0.0.0.0:10011" \
+    "--listen=0.0.0.0:10011" \
     "$@"
 
+#    --noseedbackup \
 #    "--restlisten=lnd:8089" \
 
 # Neutrino is not yet valid for mainnet

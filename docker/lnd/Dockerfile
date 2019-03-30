@@ -41,6 +41,9 @@ RUN chmod +x start-lnd.sh
 COPY "docker/lnd/info.sh" .
 RUN chmod +x info.sh
 
+COPY "docker/lnd/createwallet.sh" .
+RUN chmod +x createwallet.sh
+
 COPY "docker/lnd/newaddress.sh" .
 RUN chmod +x newaddress.sh
 

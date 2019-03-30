@@ -59,9 +59,6 @@ RUN chmod +x listpeers.sh
 COPY "docker/lnd/listchannels.sh" .
 RUN chmod +x listchannels.sh
 
-COPY "docker/lnd/openchannel.sh" .
-RUN chmod +x openchannel.sh
-
 COPY "docker/lnd/invoice.sh" .
 RUN chmod +x invoice.sh
 

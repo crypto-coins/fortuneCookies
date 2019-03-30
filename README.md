@@ -62,6 +62,7 @@ btcctl -u myuser -P mypass -s X.X.X.X:xxxx getpeerinfo --rpccert=rpc.cert
 ./telnetLND.sh and then inside:
 ```
 ./createwallet.sh      (and write down the recovery mnemonic codes, they protect your BTC balance) DO THIS ONLY ONCE!
+./unlock.sh            (do this every time you re-start the lnd daemon.)
 ./connectJOLTFUN.sh    (establish a connection to the peer at joltfun)
 ./openJOLTFUN.sh       (open a channel and fund it with 100,000 sats)
 ```

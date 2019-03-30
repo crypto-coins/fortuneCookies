@@ -54,7 +54,7 @@ wait $pid
 echo "LNS sleeping 5 minutes.. Done."
 
 exec lnd \
-    --debuglevel=debug \
+    --debuglevel=info \
     --logdir="/data" \
     "--bitcoin.active" \
     "--bitcoin.mainnet" \

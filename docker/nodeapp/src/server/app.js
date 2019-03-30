@@ -51,6 +51,35 @@ if ((isDev != undefined) && (isDev=="true")) {
       };
 }
 
+async function Connect () {
+
+    lnd = await ln.Connect(config);
+    if (lnd == undefined) return;
+
+    console.log("subscribing to invoices..")
+    var sub = await ln.subscribeToInvoices(lnd);
+    if (sub != undefined) {
+      sub.on('error', () => { console.log("SUBSCRIBE INVOICES ERROR!")  });
+      sub.on('end', () => { console.log("SUBSCRIBE INVOICES END!")  });
+      sub.on('status', () => { console.log("SUBSCRIBE INVOICES status!")  });
+      sub.on('data', invoice => {
+        console.log("INVOICE RCVD: " + JSON.stringify(invoice))
+      });
+    }
+    console.log("subscribing to transactions..")
+    var subT = await ln.subscribeToTransactions(lnd);
+    if (subT != undefined) {
+        subT.on('error', () => {
+            console.log("SUBSCRIBE TRANSACTION ERROR!")
+        });
+        subT.on('data', tx => {
+            console.log("TRANSACTION RCVD: " + JSON.stringify(tx))
+        });
+    }
+
+}
+
+
 app.get('/', async function(req, res) {
 
     command = req.query.command;
@@ -61,7 +90,7 @@ app.get('/', async function(req, res) {
 
     if (command=="makeinvoice") {
         try {
-           if (lnd==undefined) lnd = await ln.Connect(config);
+           if (lnd==undefined) await Connect();
            var satoshis = Math.floor(Math.random() * 5) + 1;
            invoice = await ln.CreateInvoice(lnd, satoshis, "fortunecookie") ;
            console.log(invoice);
@@ -115,8 +144,9 @@ app.get("/qr", async function (req, res) {
 app.get("/invoicestatus", async function (req, res) {
     // check if invoice has been paid
     var invoiceId = req.query.invoiceId;
-    var r = Math.floor(Math.random() * 10);
-    var paid = (r > 7); // 30% chance to get paid.
+    var paid = false;
+    //var r = Math.floor(Math.random() * 10);
+    //var paid = (r > 7); // 30% chance to get paid.
     var invoiceStatus =  {
         invoiceId,
         paid,
@@ -138,7 +168,7 @@ app.get('/backoffice', async function(req, res) {
     var error = undefined;
 
     try {
-        if (lnd==undefined) lnd = await ln.Connect(config);
+        if (lnd==undefined) await Connect();
     }
     catch (err) {
        lnd = undefined;

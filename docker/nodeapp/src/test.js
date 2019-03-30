@@ -49,8 +49,6 @@ async function demo () {
     sub.on('data', invoice => {
       console.log("INVOICE RCVD: " + JSON.stringify(invoice))
     });
-
-    
   }
 
   console.log("subscribing to transactions..")

@@ -1,15 +1,6 @@
 <% include menu %>
 
-
 <h1> Backoffice </h1>
-
-    <p>
-        This backoffice is being used by the payment department of King Remconien 1st.
-    </p>
-
-
-    <h2> Lightening Host is: </h2>
-    <%= ip %>
 
     <h2> Network-Info </h2>
     <% if (networkinfo!= undefined) { %>
@@ -17,7 +8,6 @@
                            avg: <%= networkinfo.average_channel_size %> 
                            max: <%= networkinfo.max_channel_size %>        
                            <br/>
-
             node count:  <%= networkinfo.node_count %> 
             channel count:  <%= networkinfo.channel_count %> 
             <br>

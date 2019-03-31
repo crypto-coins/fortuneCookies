@@ -24,9 +24,9 @@ function AddNickChannel (channel) {
         var public_key = R.prop("partner_public_key", channel);
         var nick = R.find(R.propEq('public_key', public_key))(nicks);
         if (nick==undefined) {
-            peer.nick = "?";
+            channel.nick = "?";
         } else {
-            peer.nick = nick.nick_name;
+            channel.nick = nick.nick_name;
         }
     }
     catch (err) {

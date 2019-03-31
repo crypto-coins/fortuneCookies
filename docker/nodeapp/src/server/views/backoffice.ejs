@@ -211,25 +211,25 @@
         <% payments.forEach (function(p){  %>
             <tr>
                 <td>
-                    <%= c.created_at %> 
+                    <%= p.created_at %> 
                 </td>
                 <td>
-                    <%= c.tokens %> 
+                    <%= p.tokens %> 
                 </td>
                 <td>
-                    <%= c.fee %> 
-                </td>
-
-                <td>
-                    <%= c.is_outgoing %> 
+                    <%= p.fee %> 
                 </td>
 
                 <td>
-                    <%= c.is_confirmed %> 
+                    <%= p.is_outgoing %> 
                 </td>
 
                 <td>
-                    <%= ((c.hops==undefined)?0:c.hops.length) %> 
+                    <%= p.is_confirmed %> 
+                </td>
+
+                <td>
+                    <%= ((p.hops==undefined)?0:p.hops.length) %> 
                 </td>
            
             </tr>

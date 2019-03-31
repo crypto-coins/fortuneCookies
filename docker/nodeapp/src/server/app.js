@@ -271,12 +271,13 @@ app.get('/backoffice', async function(req, res) {
   
     res.render('backoffice', {
         ip : config.ip,
-        wallet,
-        invoices,
+        networkinfo,
         peers,
         channels,
-        networkinfo,
+        wallet,
         balance,
+        invoices,
+        payments,
         error
     });
 });

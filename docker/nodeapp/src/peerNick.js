@@ -20,11 +20,16 @@ function AddNickPeer (peer) {
 }
 
 function AddNickChannel (channel) {
-    var nick = R.find(R.propEq('public_key', channel.partner_public_key))(nicks);
-    if (nick==undefined) {
-        peer.nick = "?";
-    } else {
-        peer.nick = nick.nick_name;
+    try {
+        var nick = R.find(R.propEq('public_key', channel.partner_public_key))(nicks);
+        if (nick==undefined) {
+            peer.nick = "?";
+        } else {
+            peer.nick = nick.nick_name;
+        }
+    }
+    catch (err) {
+        console.log("Error AddNickChannel for: "+ JSON.stringify(channel))
     }
 }
 

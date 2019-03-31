@@ -48,7 +48,6 @@
         <thead>
             <th> created</th>
             <th> mtokens</th>
-            <th> type</th>
             <th> text </th>
             <th> is_confirmed </th>
             <th> confirmed_at </th>
@@ -63,10 +62,6 @@
 
                 <td>
                     <%= i.mtokens %> 
-                </td>
-
-                <td>
-                    <%= i.type %> 
                 </td>
 
                 <td>
@@ -96,7 +91,6 @@
             <th> address </th>
             <th> nickname </th>
             <th> inbound </th>
-            <th> type </th>
             <th> ping </th>
             <th> byte sent </th>
             <th> byte rcvd </th>
@@ -117,10 +111,6 @@
 
                 <td>
                     <%= p.is_inbound %> 
-                </td>
-
-                <td>
-                    <%= p.type %> 
                 </td>
 
                 <td>
@@ -214,6 +204,7 @@
             <th> is_outgoing </th>
             <th> is_confirmed </th>
             <th> hops # </th>
+            <th> destination </th>
         </thead>
 
         <tbody>
@@ -240,6 +231,11 @@
                 <td>
                     <%= ((p.hops==undefined)?0:p.hops.length) %> 
                 </td>
+
+                <td>
+                    <%= p.destination %> 
+                </td>
+                
            
             </tr>
         <% }); %>

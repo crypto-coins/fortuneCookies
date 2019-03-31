@@ -223,9 +223,9 @@ app.get('/backoffice', async function(req, res) {
 
       try {
         channels = await ln.Channels(lnd);
-        R.map(AddNickChannel, peers);
         console.log("Channels:")
         console.log(channels);
+        R.map(AddNickChannel, channels);
       } catch (err) {
          error = err;
          channels = [];

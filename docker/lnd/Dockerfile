@@ -78,14 +78,14 @@ RUN chmod +x fundLTOME.sh
 COPY "docker/lnd/connectECLAIR.sh" .
 RUN chmod +x connectECLAIR.sh
 
-COPY "docker/lnd/fundLTOME.sh" .
+COPY "docker/lnd/fundECLAIR.sh" .
 RUN chmod +x fundECLAIR.sh
 
 # Blue
 COPY "docker/lnd/connectBLUE.sh" .
 RUN chmod +x connectBLUE.sh
 
-COPY "docker/lnd/fundLTOME.sh" .
+COPY "docker/lnd/fundBLUE.sh" .
 RUN chmod +x fundBLUE.sh
 
 # LN BIG
@@ -93,10 +93,13 @@ RUN chmod +x fundBLUE.sh
 COPY "docker/lnd/connectLNBIG.sh" .
 RUN chmod +x connectLNBIG.sh
 
+# JOLT FUN - remove this.
+
 COPY "docker/lnd/connectJOLTFUN.sh" .
 RUN chmod +x connectJOLTFUN.sh
 
 
+# send BTC via Lightning
 
 COPY "docker/lnd/send.sh" .
 RUN chmod +x send.sh

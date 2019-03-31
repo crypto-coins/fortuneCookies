@@ -159,11 +159,11 @@
             <th> active </th>
             <th> capacity </th>
 
-            <th> local balance</th>
-            <th> remote balance </th>
+            <th> $ local </th>
+            <th> $ remote </th>
             
-            <th> received </th>
             <th> sent </th>
+            <th> received </th>
         </thead>
 
         <tbody>
@@ -173,7 +173,7 @@
                     <%= c.id %> 
                 </td>
                 <td>
-                    <%= c.id %> 
+                    <%= c.nick %> 
                 </td>
                 <td>
                     <%= c.is_active %> 
@@ -191,11 +191,11 @@
                 </td>
 
                 <td>
-                    <%= c.received %> 
+                    <%= c.sent %> 
                 </td>
 
                 <td>
-                    <%= c.sent %> 
+                    <%= c.received %> 
                 </td>
 
             </tr>

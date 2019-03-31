@@ -57,7 +57,7 @@
     <div class="payment-box">
         <p> Payment Request: <b class="payment-text">  <%= invoice.request %>  </b> </p>
     </div> 
-    
+    <a class="payment-link" href="lightning:<%= invoice.request %>">Pay</a>
 
     <p style="color:#a0a0a0;">Invoice Id:    <%= invoice.id %>  </p>
     <% if (invoice != undefined) { %>

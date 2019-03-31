@@ -13,6 +13,7 @@ var R = require("ramda"),
     methodOverride = require('method-override'),
 
     ln = require("../ln.js"),
+    {AddNickPeer,AddNickChannel} = require("../peerNick.js"),
     lnd = undefined,
     {GetQuote} = require("./fortune.js");
 
@@ -209,6 +210,8 @@ app.get('/backoffice', async function(req, res) {
       
       try {
         peers = await ln.Peers(lnd);
+        R.map(AddNickPeer, peers);
+        
         console.log("Peers:")
         console.log(peers);
       } catch (err) {
@@ -220,6 +223,7 @@ app.get('/backoffice', async function(req, res) {
 
       try {
         channels = await ln.Channels(lnd);
+        R.map(AddNickChannel, peers);
         console.log("Channels:")
         console.log(channels);
       } catch (err) {

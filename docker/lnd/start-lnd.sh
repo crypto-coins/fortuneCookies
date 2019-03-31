@@ -68,6 +68,7 @@ exec lnd \
     "--rpclisten=lnd:10001" \
     "--restlisten=0.0.0.0:8089" \
     "--listen=0.0.0.0:10011" \
+    "--externalip=51.143.175.11" \ 
     "$@"
 
 # Valid levels are {trace, debug, info, warn, error, critical}
@@ -86,9 +87,8 @@ exec lnd \
 #    "--btcd.rpcpass"="$RPCPASS" \
 
 
-# "--externalip=80.110.207.163" \ 
-#     "--noencryptwallet"
-# 172.22.0.3
+
+
 
 
 # Wallet Address:   39Shju5ZrxvrCJfvSecZm9EJiwHhjQY7rA

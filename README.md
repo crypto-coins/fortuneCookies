@@ -16,7 +16,14 @@ A demo-site to show how to accept Lightning payments.
 - Linux machine, hosted in Azure/GoogleCloud/AWS
 - 1 Terrabyte disk storage, mounted on /datadrive to store the bitcoin blockchain (currently 250 gigs)
 - AZURE ADD VM IMAGE https://docs.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal
-- open ports: 22 (ssh), 80 (web frontend), 8051 (gotty realtime logs)
+
+## Port to be opened
+- 22 SSH
+- 80 web frontend
+- 8051 gotty realtime logs
+- 3000 RTL LND admin
+- 9735 public LND port for other peers to connect to
+ 
 
 ## Build it
 ```

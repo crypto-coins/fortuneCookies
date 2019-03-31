@@ -67,8 +67,28 @@ RUN chmod +x invoice.sh
 
 # peer management
 
+# LighteningToMe
 COPY "docker/lnd/connectLTOME.sh" .
 RUN chmod +x connectLTOME.sh
+
+COPY "docker/lnd/fundLTOME.sh" .
+RUN chmod +x fundLTOME.sh
+
+# Eclair
+COPY "docker/lnd/connectECLAIR.sh" .
+RUN chmod +x connectECLAIR.sh
+
+COPY "docker/lnd/fundLTOME.sh" .
+RUN chmod +x fundECLAIR.sh
+
+# Blue
+COPY "docker/lnd/connectBLUE.sh" .
+RUN chmod +x connectBLUE.sh
+
+COPY "docker/lnd/fundLTOME.sh" .
+RUN chmod +x fundBLUE.sh
+
+# LN BIG
 
 COPY "docker/lnd/connectLNBIG.sh" .
 RUN chmod +x connectLNBIG.sh
@@ -76,8 +96,7 @@ RUN chmod +x connectLNBIG.sh
 COPY "docker/lnd/connectJOLTFUN.sh" .
 RUN chmod +x connectJOLTFUN.sh
 
-COPY "docker/lnd/fundLTOME.sh" .
-RUN chmod +x fundLTOME.sh
+
 
 COPY "docker/lnd/send.sh" .
 RUN chmod +x send.sh

@@ -37,6 +37,8 @@ RUN apk add --no-cache \
 COPY "docker/lnd/start-lnd.sh" .
 RUN chmod +x start-lnd.sh
 
+COPY "docker/lnd/networkinfo.sh" .
+RUN chmod +x networkinfo.sh
 
 COPY "docker/lnd/info.sh" .
 RUN chmod +x info.sh
@@ -53,6 +55,7 @@ RUN chmod +x newaddress.sh
 COPY "docker/lnd/walletbalance.sh" .
 RUN chmod +x walletbalance.sh
 
+
 COPY "docker/lnd/listpeers.sh" .
 RUN chmod +x listpeers.sh
 
@@ -62,16 +65,20 @@ RUN chmod +x listchannels.sh
 COPY "docker/lnd/invoice.sh" .
 RUN chmod +x invoice.sh
 
-COPY "docker/lnd/networkinfo.sh" .
-RUN chmod +x networkinfo.sh
+# peer management
 
-COPY "docker/lnd/connectJOLTFUN.sh" .
-RUN chmod +x connectJOLTFUN.sh
-
-COPY "docker/lnd/openJOLTFUN.sh" .
-RUN chmod +x openJOLTFUN.sh
+COPY "docker/lnd/connectLTOME.sh" .
+RUN chmod +x connectLTOME.sh
 
 COPY "docker/lnd/connectLNBIG.sh" .
 RUN chmod +x connectLNBIG.sh
 
+COPY "docker/lnd/connectJOLTFUN.sh" .
+RUN chmod +x connectJOLTFUN.sh
+
+COPY "docker/lnd/fundLTOME.sh" .
+RUN chmod +x fundLTOME.sh
+
+COPY "docker/lnd/send.sh" .
+RUN chmod +x send.sh
 

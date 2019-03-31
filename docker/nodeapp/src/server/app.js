@@ -51,6 +51,8 @@ if ((isDev != undefined) && (isDev=="true")) {
       };
 }
 
+var invoices = {};
+
 async function Connect () {
 
     lnd = await ln.Connect(config);
@@ -63,7 +65,8 @@ async function Connect () {
       sub.on('end', () => { console.log("SUBSCRIBE INVOICES END!")  });
       sub.on('status', () => { console.log("SUBSCRIBE INVOICES status!")  });
       sub.on('data', invoice => {
-        console.log("INVOICE RCVD: " + JSON.stringify(invoice))
+        console.log("INVOICE RCVD: " + JSON.stringify(invoice));
+        invoices = R.set(R.lensProp(invoice.id), invoice, invoices);
       });
     }
     console.log("subscribing to transactions..")
@@ -147,6 +150,12 @@ app.get("/invoicestatus", async function (req, res) {
     var paid = false;
     //var r = Math.floor(Math.random() * 10);
     //var paid = (r > 7); // 30% chance to get paid.
+
+    var invoice = R.prop(invoiceId,invoices);
+    if (invoice!=undefined) {
+        if (invoice.is_confirmed==true) paid=true;
+    }
+
     var invoiceStatus =  {
         invoiceId,
         paid,

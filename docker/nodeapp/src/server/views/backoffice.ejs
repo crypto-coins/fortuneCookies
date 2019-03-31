@@ -51,6 +51,7 @@
             <th> type</th>
             <th> text </th>
             <th> is_confirmed </th>
+            <th> confirmed_at </th>
         </thead>
 
         <tbody>
@@ -75,6 +76,11 @@
                 <td>
                     <%= i.is_confirmed %> 
                 </td>
+
+                <td>
+                        <%= i.confirmed_at %> 
+                </td>
+                
 
             </tr>
         <% }); %>
@@ -140,38 +146,47 @@
 
 
     <h2> Channels </h2>
-
     <% if (channels!= undefined) { %> 
     <table>
         <thead>
-            <th> created</th>
-            <th> mtokens</th>
-            <th> type</th>
-            <th> text </th>
-            <th> is_confirmed </th>
+            <th> id </th>
+            <th> active </th>
+            <th> capacity </th>
+
+            <th> local balance</th>
+            <th> remote balance </th>
+            
+            <th> received </th>
+            <th> sent </th>
         </thead>
 
         <tbody>
         <% channels.forEach (function(c){  %>
             <tr>
                 <td>
-                    <%= c.created_at %> 
+                    <%= c.id %> 
+                </td>
+                <td>
+                    <%= c.is_active %> 
+                </td>
+                <td>
+                    <%= c.capacity %> 
                 </td>
 
                 <td>
-                    <%= c.mtokens %> 
+                    <%= c.local_balance %> 
                 </td>
 
                 <td>
-                    <%= c.type %> 
+                    <%= c.remote_balance %> 
                 </td>
 
                 <td>
-                    <%= c.description %> 
+                    <%= c.received %> 
                 </td>
 
                 <td>
-                    <%= c.is_confirmed %> 
+                    <%= c.sent %> 
                 </td>
 
             </tr>
@@ -180,7 +195,48 @@
     </table>
     <% } %>
 
-    
+    <h2> Payments </h2>
+    <% if (payments!= undefined) { %> 
+    <table>
+        <thead>
+            <th> created_at </th>
+            <th> tokens </th>
+            <th> fee </th>
+            <th> is_outgoing </th>
+            <th> is_confirmed </th>
+            <th> hops # </th>
+        </thead>
+
+        <tbody>
+        <% payments.forEach (function(p){  %>
+            <tr>
+                <td>
+                    <%= c.created_at %> 
+                </td>
+                <td>
+                    <%= c.tokens %> 
+                </td>
+                <td>
+                    <%= c.fee %> 
+                </td>
+
+                <td>
+                    <%= c.is_outgoing %> 
+                </td>
+
+                <td>
+                    <%= c.is_confirmed %> 
+                </td>
+
+                <td>
+                    <%= ((c.hops==undefined)?0:c.hops.length) %> 
+                </td>
+           
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+    <% } %>
 
 
 </body>
